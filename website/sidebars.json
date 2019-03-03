@@ -1,0 +1,47 @@
+{
+	"docs": {
+		"Docs": [
+			"index",
+			"start"
+		],
+		"Reference": [{
+			"type": "subcategory",
+			"label": "General",
+			"ids": [
+				"server",
+				"mirror",
+				"store"
+			]
+		}, {
+			"type": "subcategory",
+			"label": "HTTP",
+			"ids": [
+				"http-host",
+				"router",
+				"http-connection"
+			]
+		}, {
+			"type": "subcategory",
+			"label": "WS",
+			"ids": [
+				"ws-host",
+				"ws-channel",
+				"ws-connection"
+			]
+		}, {
+			"type": "subcategory",
+			"label": "Client",
+			"ids": [
+				"client",
+				"client-request",
+				"client-connection"
+			]
+		}, {
+			"type": "subcategory",
+			"label": "Info",
+			"ids": [
+				"logging"
+			]
+		}]
+	}
+}
