@@ -4,8 +4,8 @@
 module.exports = {
 	title: 'simpleS', // Title for your website.
 	tagline: 'A Simple Web Framework for Node.js',
-	url: 'https://micnic.github.io', // Your website URL
-	baseUrl: '/simples', // Base URL for your project */
+	url: 'https://simples.js.org', // Your website URL
+	baseUrl: '/', // Base URL for your project */
 	// For github.io type URLs, you would set the url and baseUrl like:
 	//   url: 'https://facebook.github.io',
 	//   baseUrl: '/test-site/',
