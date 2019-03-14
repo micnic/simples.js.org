@@ -9,6 +9,8 @@ sidebar_label: Router
 [2]: logging.md
 [3]: store.md#store-implementation
 
+[WORK IN PROGRESS]
+
 `simpleS` is easy to use with complex routing structures.
 
 ```js

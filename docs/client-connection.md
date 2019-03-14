@@ -4,4 +4,4 @@ title: ClientConnection
 sidebar_label: ClientConnection
 ---
 
-TBA
+[WORK IN PROGRESS]
