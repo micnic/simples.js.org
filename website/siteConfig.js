@@ -71,9 +71,12 @@ module.exports = {
 	// No .html extensions for paths.
 	cleanUrl: true,
 
-	// Open Graph and Twitter card images.
+	// Google Analytics configuration.
+	gaTrackingId: 'UA-136434169-1',
+	gaGtag: true,
+
+	// Open Graph card image.
 	ogImage: 'img/logo.svg',
-	twitterImage: 'img/logo.svg',
 
 	// Show documentation's last contributor's name.
 	// enableUpdateBy: true,
