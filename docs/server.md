@@ -8,10 +8,9 @@ sidebar_label: Server
 [1]: http-host.md
 [2]: https://nodejs.org/api/http.html#http_server_listen
 [3]: https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
-[4]: router.md#router-options
-[5]: https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
-[6]: mirror.md
-[7]: https://www.npmjs.org/package/simples-redirect
+[4]: https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
+[5]: mirror.md
+[6]: https://www.npmjs.org/package/simples-redirect
 
 `simpleS` provides the simplest way to create a HTTP(S) server instance.
 
@@ -59,12 +58,9 @@ the main host and has all the methods and properties of the HTTPHost class, see
 
 Server options, basically, implements the [`http.Server.listen()`][2] method
 with the possibility to create a HTTPS server by defining the [TLS options][3].
-Also it provides the possibility to define the main router configuration, see
-[Router Options][4] for detailed information.
 
 ```js
 {
-    config: {},             // Main router configuration, see Router Options
     port: 80,               // Port, default is 80 for HTTP and 443 for HTTPS
     hostname: '0.0.0.0',    // Hostname from which to accept connections
     backlog: 511,           // The maximum length of pending connections
@@ -103,7 +99,7 @@ simples((server) => { // The server is also set on port 80
 
 If the `https` property is present in the `options` argument the created server
 is a HTTPS server. These HTTPS options should be the same as they would pe
-provided for [`https.Server`][5] with the exception that for the `key` and
+provided for [`https.Server`][4] with the exception that for the `key` and
 `cert` or `pfx` properties should be paths to the `.pem` or `.pfx` files,
 `simpleS` will resolve their content when it is required. Note: by creating a
 HTTPS server there will be no HTTP server provided, a mirror should be created
@@ -143,14 +139,14 @@ simples({ // The server is also set on port 443
 ```
 
 On HTTPS server creation an additional HTTP server may be needed, use a mirror
-for this, see [Mirror docs][6].
+for this, see [Mirror docs][5].
 
 ```js
 // Add a HTTP mirror
 server.mirror(); // The mirror is set on port 80, see Mirror docs
 ```
 
-To redirect the client to HTTPS try [simples-redirect][7] middleware.
+To redirect the client to HTTPS try [simples-redirect][6] middleware.
 
 ## Starting and Restarting
 
@@ -224,12 +220,12 @@ server.on('stop', (server) => {
 but on different ports and different configuration, this is done using mirror
 servers.
 
-See [Mirror docs][6] for detailed information.
+See [Mirror docs][5] for detailed information.
 
 ## Virtual Hosting
 
 ```js
-.host(name[, options])
+.host(name)
 ```
 
 `simpleS` allows having multiple HTTP hosts on the same server.

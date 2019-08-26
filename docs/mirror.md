@@ -26,13 +26,12 @@ server.mirror([port, options, callback])
 | Argument   | Type                               | Default                    |
 |:----------:|------------------------------------|----------------------------|
 | `port`     | `number`                           | `80` - HTTP, `443` - HTTPS |
-| `options`  | `simples.MirrorOptions`            | `null`                     |
+| `options`  | `simples.ServerOptions`            | `null`                     |
 | `callback` | `(mirror: simples.Mirror) => void` | `null`                     |
 | **return** | `simples.Mirror`                   |                            |
 
 Mirror instances are configured in the same way [server instances][0] are
-configured with the exception the mirrors do not use `config` property as they
-do not have to configure any main router.
+configured.
 
 ---
 

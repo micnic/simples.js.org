@@ -4,8 +4,7 @@ title: HTTPHost
 sidebar_label: HTTPHost
 ---
 
-[0]: router.md#router-options
-[1]: router.md
+[0]: router.md
 
 `simpleS` allows having multiple HTTP hosts on the same server.
 
@@ -20,13 +19,12 @@ const host = server.host('example.com');
 ## HTTPHost Instance
 
 ```js
-server.host(name[, options])
+server.host(name)
 ```
 
 | Argument   | Type                    | Default       |
 |:----------:|-------------------------|---------------|
 | `name`     | `string`                | N/A, required |
-| `options`  | `simples.RouterOptions` | `null`        |
 | **return** | `simples.HTTPHost`      |               |
 
 `name` argument specifies the host name for which the requests will be handled,
@@ -34,14 +32,11 @@ the host name can contain `*` to match 1 or more characters in that part of the
 host name. If invalid name argument is provided then this method will return
 `null`.
 
-`options` argument specifies the main router options, see [Router Options][0]
-for detailed information. If it is not defined default router options are used.
-
 ---
 
 The HTTPHost class extends the Router class, so the HTTP host is in the same
 time the main router and has all the methods and properties of the Router class,
-see [Router docs][1] for detailed information.
+see [Router docs][0] for detailed information.
 
 ## Usage
 

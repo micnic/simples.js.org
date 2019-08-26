@@ -38,6 +38,8 @@ sidebar_label: HTTPConnection
 
 `.url` - The url of the request split in components
 
+`.body()` - Parse received data from the request
+
 `.cache([config])` - Set, get or remove Cache-Control header
 
 `.close([callback])` - Close the connection
@@ -57,8 +59,6 @@ sidebar_label: HTTPConnection
 `.links([links])` - Define the relation of the current location with other locations
 
 `.log([format, tokens, logger])` - Log data
-
-`.parse(config)` - Parse received data from the request
 
 `.redirect(location[, permanent])` - Redirect the client to a specific location
 

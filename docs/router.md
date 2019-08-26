@@ -24,21 +24,16 @@ const router = server.router('/path/to/router');
 ## Router Instance
 
 ```js
-router.router(location[, options])
+router.router(location)
 ```
 
 | Argument   | Type                    | Default       |
 |:----------:|-------------------------|---------------|
 | `location` | `string`                | N/A, required |
-| `options`  | `simples.RouterOptions` | `null`        |
 | **return** | `simples.Router`        |               |
 
 `location` argument specifies the relative path of the router to the parent
 router.
-
-`options` argument specifies router configuration which will be applied to the
-routes and child routers by default. If it is not defined default router options
-are used. Their structure is explained [below][0].
 
 ---
 
@@ -48,15 +43,32 @@ controllable parts. Server and HTTPHost classes inherit from the Router class,
 they are the main routers in their contexts. Any option configured in the upper
 level of the routing chain is inherited down to child routers.
 
-## Router Options
+## Router Configuration
 
-Router options allows configuring the compression, CORS, logging, sessions,
-static files and connections timeout. These options are applied to the current
-router routes, child routers will inherit this configuration if it is not
-overwritten in their configuration.
+After creation routers can be configured with custom options to fit the
+requirements of the application. Router options allows configuring the
+compression, CORS, logging, sessions, static files and connections timeout.
+These options are applied to the current router routes, child routers will
+inherit this configuration if it is not overwritten in their configuration. The
+`.config()` method is used for applying all the router options, to apply some
+specific type of options other specialized methods, which are described below,
+can be used.
 
 ```js
-{
+.config(config)
+```
+
+| Argument   | Type                    | Default          |
+|:----------:|-------------------------|------------------|
+| `config`   | `simples.RouterOptions` | `null`, required |
+| **return** | `simples.Router`        |                  |
+
+`config` argument specifies all configuration options of the router, these
+options are separated in compression, cors, logger, session, static and timeout.
+
+```js
+router.config({
+
     // Compression options
     compression: {
 
@@ -101,8 +113,8 @@ overwritten in their configuration.
         // Log function
         log: () => null,
 
-        // Tokens function
-        tokens: () => null
+        // Tokens container
+        tokens: null
     },
 
     // Session options
@@ -130,7 +142,8 @@ overwritten in their configuration.
         index: ['index.html'],
 
         // Location of the root directory that will serve the static files
-        location: ''
+        // By default the subdirectory ./public is used from the CWD
+        location: '/{CWD}/public'
     },
 
     // Connection keep alive timeout option
@@ -142,12 +155,8 @@ overwritten in their configuration.
         // Value for connection keep alive timeout, by default no value is set
         value: 0
     }
-}
+});
 ```
-
-## Router Configuration
-
-Every property of router options has a separated method to be configured.
 
 ### Compression
 Configure router compression options.
@@ -418,4 +427,3 @@ as parameter or a string for view rendering (see `Connection.render()`). The
 data for the view, as a function, the `callback` should provide an object as
 parameter to be imported in the view. Returns current instance, so calls can be
 chained.
-
