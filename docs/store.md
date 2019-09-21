@@ -4,6 +4,9 @@ title: Store
 sidebar_label: Store
 ---
 
+[0]: router.md#session
+[1]: session.md
+
 `simpleS` uses store implementations to deposit session objects.
 
 ```js
@@ -14,10 +17,9 @@ const store = simples.store();
 
 ## Memory Store
 
-By default `simpleS` uses a memcached store for sessions, which is by design
-not persistent, does not scale and is meant only for development purpose. For
-production purpose a custom store implementation should be used. Internally the
-memory store is checking every minute for expired sessions and removes them. To
+By default `simpleS` uses a memcached store for sessions, which is by design not
+persistent, leaks memory, does not scale and is meant only for development
+purpose. For production purpose a custom store implementation should be used. To
 create a memory store `simples.store()` method should be called without any
 parameters.
 
@@ -27,21 +29,26 @@ const store = simples.store();
 
 ## Store Implementation
 
-Third party store implementations have to implement three methods, `.get()`,
-`.set()`, and `.unset()`, to be compliant with the `simpleS` session management
-system.
+Third party store implementations have to implement four methods, `.get()`,
+`.set()`, `.remove()` and `.update()`, to be compliant with the `simpleS`
+session management system.
 
-`.get(id, callback)` - method to get a session by the session id from the store,
-the `callback` parameter should be called as `callback(error, session)`, in the
-case session was not found the `session` argument should be `null`.
+`.get(id)` - method to get a session by the session id from the store, it should
+return a promise that resolves with the session or with `null` if the session
+was not found.
 
-`.set(id, session, callback)` - method to save a session to the store providing
-the session id and the session object itself, the `callback` parameter should be
-called as `callback(error)` when the session is saved in the store.
+`.set(id, session, timeout)` - method to save a session to the store providing
+the session id, the session object and the session timeout, it should return a
+promise that resolves in case of a successful save.
 
-`.unset(id, callback)` - method to remove a session from the store providing the
-session id, the `callback` parameter should be called as `callback(error)` when
-the session is removed from the store.
+`.remove(id)` - method to remove a session from the store providing the session
+id, it should return a promise that resolves in case of a successful removal.
+
+`.update(id, timeout)` - method to update the session by providing session id
+and the session timeout, it should return a promise that resolves in case of
+successful update. This method is optional for store implementations, but it is
+highly recommended as it is used to mark the session as active by updating its
+timeout in case it was not modified but just accessed.
 
 The easiest way to create a custom store is to use `simples.store()` method
 called with an object as parameter, the object has to implement the required
@@ -51,28 +58,35 @@ methods for the store.
 const store = simples.store({
 
     // id: string
-    // callback: (error: Error, session: simples.Session) => void
-    get(id, callback) {
+    get(id) {
         // Store get method implementation
-        // If the session was found callback(null, session) should be called
-        // Else an error should be sent with callback(error, null)
+        // Should return a promise
+        // The returned promise should resolve with the session value if found
+        // The returned promise should resolve with null if no session is found
     },
 
     // id: string
     // session: simples.Session
-    // callback: (error: Error) => void
-    set(id, session, callback) {
+    // timeout: number
+    set(id, session, timeout) {
         // Store set method implementation
-        // If the session was properly set callback(null) should be called
-        // Else an error should be sent with callback(error)
+        // Should return a promise
+        // The returned promise should resolve in case of a successful save
     },
 
     // id: string
-    // callback: (error: Error) => void
-    unset(id, callback) {
-        // Store unset method implementation
-        // If the session was properly removed callback(null) should be called
-        // Else an error should be sent with callback(error)
+    remove(id) {
+        // Store remove method implementation
+        // Should return a promise
+        // The returned promise should resolve in case of a successful removal
+    }
+
+    // id: string
+    // timeout: number
+    update(id, timeout) {
+        // Store remove update implementation
+        // Should return a promise
+        // The returned promise should resolve in case of a successful update
     }
 });
 ```
@@ -98,3 +112,8 @@ server.host('example.com', {    // Host configuration
     }
 })
 ```
+
+### See also
+[Router session configuration][0]
+
+[Session documentation][1]

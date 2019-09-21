@@ -12,7 +12,7 @@ sidebar_label: Server
 [5]: mirror.md
 [6]: https://www.npmjs.org/package/simples-redirect
 
-`simpleS` provides the simplest way to create a HTTP(S) server instance.
+`simpleS` provides the simplest way to create an HTTP(S) server instance.
 
 ```js
 const simples = require('simples');
