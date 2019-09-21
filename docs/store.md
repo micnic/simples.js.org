@@ -93,24 +93,26 @@ const store = simples.store({
 
 ## Usage
 
-Stores are used in the hosts configuration objects
+Stores are used in the router configuration objects
 
 ```js
 // On server creation the store is used inside the main host configuration
-const server = simples({    // Server configuration
-    config: {               // Main host configuration
-        session: {          // Main host session configuration
-            store           // Store instance
-        }
+const server = simples();
+
+server.config({         // Main router configuration
+    session: {          // Main router session configuration
+        enabled: true,  // Session enabled
+        store           // Store instance
     }
 });
 
-// On host creation the store is used inside the main router configuration
-server.host('example.com', {    // Host configuration
-    session: {                  // Host session configuration
-        store                   // Store instance
-    }
-})
+// or use the shortcut method
+server.session({        // Main router session configuration
+    enabled: true,      // Session enabled
+    store               // Store instance
+});
+
+// In the same way store instances can be used on host or router configuration
 ```
 
 ### See also
